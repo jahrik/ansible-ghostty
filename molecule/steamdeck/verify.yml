@@ -1,0 +1,44 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Stat ~/.local/bin/ghostty
+      ansible.builtin.stat:
+        path: ~/.local/bin/ghostty
+      register: ghostty_bin
+
+    - name: Assert ghostty binary exists
+      ansible.builtin.assert:
+        that: ghostty_bin.stat.exists
+        fail_msg: "~/.local/bin/ghostty not found"
+
+    - name: Stat ~/.local/share/applications/ghostty.desktop
+      ansible.builtin.stat:
+        path: ~/.local/share/applications/ghostty.desktop
+      register: ghostty_desktop
+
+    - name: Assert desktop entry exists
+      ansible.builtin.assert:
+        that: ghostty_desktop.stat.exists
+        fail_msg: "~/.local/share/applications/ghostty.desktop not found"
+
+    - name: Stat ~/.local/share/icons/ghostty.png
+      ansible.builtin.stat:
+        path: ~/.local/share/icons/ghostty.png
+      register: ghostty_icon
+
+    - name: Assert icon exists
+      ansible.builtin.assert:
+        that: ghostty_icon.stat.exists
+        fail_msg: "~/.local/share/icons/ghostty.png not found"
+
+    - name: Stat ~/.config/ghostty/config
+      ansible.builtin.stat:
+        path: ~/.config/ghostty/config
+      register: ghostty_cfg
+
+    - name: Assert config exists
+      ansible.builtin.assert:
+        that: ghostty_cfg.stat.exists
+        fail_msg: "~/.config/ghostty/config not found"

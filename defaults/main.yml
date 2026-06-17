@@ -1,0 +1,52 @@
+---
+install: true
+ghostty:
+  font:
+    size: 14
+    family: JetBrainsMonoNerdFont
+    thicken: true
+  window:
+    padding_x: 10
+    padding_y: 8
+    save_state: always
+    theme: auto
+  background:
+    opacity: 0.9
+    blur_radius: 20
+  cursor:
+    style: bar
+    blink: true
+    opacity: 0.8
+  theme: "light:Catppuccin Latte,dark:Catppuccin Mocha"
+  scrollback_limit: 25000000
+  mouse_hide_while_typing: true
+  copy_on_select: clipboard
+  shell_integration: detect
+  clipboard_paste_protection: true
+  clipboard_paste_bracketed_safe: true
+  adjust_cell_height: 2
+  quick_terminal:
+    position: top
+    screen: mouse
+    autohide: true
+    animation_duration: 0.15
+  keybinds:
+    - "global:ctrl+grave_accent=toggle_quick_terminal"
+    - "ctrl+shift+t=new_tab"
+    - "ctrl+shift+left=previous_tab"
+    - "ctrl+shift+right=next_tab"
+    - "ctrl+shift+w=close_surface"
+    - "ctrl+shift+d=new_split:right"
+    - "ctrl+shift+enter=new_split:down"
+    - "ctrl+shift+h=goto_split:left"
+    - "ctrl+shift+l=goto_split:right"
+    - "ctrl+shift+k=goto_split:top"
+    - "ctrl+shift+j=goto_split:bottom"
+    - "ctrl+shift+e=equalize_splits"
+    - "ctrl+shift+f=toggle_split_zoom"
+    - "ctrl+plus=increase_font_size:1"
+    - "ctrl+minus=decrease_font_size:1"
+    - "ctrl+zero=reset_font_size"
+    - "ctrl+shift+comma=reload_config"
+
+ghostty_steamos_version: "1.1.3"

@@ -1,0 +1,35 @@
+---
+- name: Check for SteamOS
+  ansible.builtin.stat:
+    path: /etc/steamos-release
+  register: steamos_release
+
+- name: Include steamos
+  ansible.builtin.include_tasks: steamos.yml
+  when: steamos_release.stat.exists
+
+- name: Include debian
+  ansible.builtin.include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Include archlinux
+  ansible.builtin.include_tasks: archlinux.yml
+  when: ansible_os_family == 'Archlinux' and not steamos_release.stat.exists
+
+- name: Include darwin
+  ansible.builtin.include_tasks: darwin.yml
+  when: ansible_os_family == 'Darwin'
+
+- name: Create ~/.config/ghostty directory
+  become: false
+  ansible.builtin.file:
+    path: ~/.config/ghostty
+    state: directory
+    mode: '0755'
+
+- name: Generate ghostty config
+  become: false
+  ansible.builtin.template:
+    src: config.j2
+    dest: ~/.config/ghostty/config
+    mode: '0644'

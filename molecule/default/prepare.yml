@@ -1,0 +1,11 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Disable pacman sandbox for Docker compatibility
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        line: "DisableSandbox"
+        state: present
+      when: ansible_os_family == 'Archlinux'

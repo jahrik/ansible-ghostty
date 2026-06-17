@@ -1,0 +1,55 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Check for SteamOS
+      ansible.builtin.stat:
+        path: /etc/steamos-release
+      register: steamos_release
+
+    - name: Check ghostty binary at ~/.local/bin/ghostty
+      ansible.builtin.stat:
+        path: ~/.local/bin/ghostty
+      register: ghostty_local_bin
+      when: steamos_release.stat.exists
+
+    - name: Assert ghostty binary is installed (SteamOS)
+      ansible.builtin.assert:
+        that: ghostty_local_bin.stat.exists
+        fail_msg: "ghostty binary not found at ~/.local/bin/ghostty"
+      when: steamos_release.stat.exists
+
+    - name: Check ghostty app bundle (macOS)
+      ansible.builtin.stat:
+        path: /Applications/Ghostty.app
+      register: ghostty_app
+      when: ansible_os_family == 'Darwin'
+
+    - name: Assert ghostty app is installed (macOS)
+      ansible.builtin.assert:
+        that: ghostty_app.stat.exists
+        fail_msg: "Ghostty.app not found at /Applications/Ghostty.app"
+      when: ansible_os_family == 'Darwin'
+
+    - name: Check ghostty binary on PATH (Linux)
+      ansible.builtin.command: which ghostty
+      register: ghostty_bin
+      changed_when: false
+      when: ansible_os_family != 'Darwin' and not steamos_release.stat.exists
+
+    - name: Assert ghostty binary is installed (Linux)
+      ansible.builtin.assert:
+        that: ghostty_bin.rc == 0
+        fail_msg: "ghostty binary not found on PATH"
+      when: ansible_os_family != 'Darwin' and not steamos_release.stat.exists
+
+    - name: Check ghostty config file
+      ansible.builtin.stat:
+        path: ~/.config/ghostty/config
+      register: ghostty_cfg
+
+    - name: Assert ghostty config exists
+      ansible.builtin.assert:
+        that: ghostty_cfg.stat.exists
+        fail_msg: "ghostty config not found at ~/.config/ghostty/config"

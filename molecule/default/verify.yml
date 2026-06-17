@@ -1,0 +1,24 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check ghostty binary
+      ansible.builtin.stat:
+        path: /usr/bin/ghostty
+      register: ghostty_bin
+
+    - name: Assert ghostty is installed
+      ansible.builtin.assert:
+        that: ghostty_bin.stat.exists
+        fail_msg: "ghostty binary not found at /usr/bin/ghostty"
+
+    - name: Check ghostty config file
+      ansible.builtin.stat:
+        path: ~/.config/ghostty/config
+      register: ghostty_cfg
+
+    - name: Assert ghostty config exists
+      ansible.builtin.assert:
+        that: ghostty_cfg.stat.exists
+        fail_msg: "ghostty config not found at ~/.config/ghostty/config"

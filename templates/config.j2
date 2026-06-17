@@ -1,0 +1,34 @@
+# {{ ansible_managed }}
+
+font-family = {{ ghostty.font.family }}
+font-size = {{ ghostty.font.size }}
+font-thicken = {{ ghostty.font.thicken | lower }}
+adjust-cell-height = {{ ghostty.adjust_cell_height }}
+
+theme = {{ ghostty.theme }}
+background-opacity = {{ ghostty.background.opacity }}
+background-blur-radius = {{ ghostty.background.blur_radius }}
+window-padding-x = {{ ghostty.window.padding_x }}
+window-padding-y = {{ ghostty.window.padding_y }}
+window-save-state = {{ ghostty.window.save_state }}
+window-theme = {{ ghostty.window.theme }}
+
+cursor-style = {{ ghostty.cursor.style }}
+cursor-style-blink = {{ ghostty.cursor.blink | lower }}
+cursor-opacity = {{ ghostty.cursor.opacity }}
+mouse-hide-while-typing = {{ ghostty.mouse_hide_while_typing | lower }}
+copy-on-select = {{ ghostty.copy_on_select }}
+
+quick-terminal-position = {{ ghostty.quick_terminal.position }}
+quick-terminal-screen = {{ ghostty.quick_terminal.screen }}
+quick-terminal-autohide = {{ ghostty.quick_terminal.autohide | lower }}
+quick-terminal-animation-duration = {{ ghostty.quick_terminal.animation_duration }}
+
+clipboard-paste-protection = {{ ghostty.clipboard_paste_protection | lower }}
+clipboard-paste-bracketed-safe = {{ ghostty.clipboard_paste_bracketed_safe | lower }}
+shell-integration = {{ ghostty.shell_integration }}
+scrollback-limit = {{ ghostty.scrollback_limit }}
+
+{% for keybind in ghostty.keybinds %}
+keybind = {{ keybind }}
+{% endfor %}

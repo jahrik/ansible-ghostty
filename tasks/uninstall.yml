@@ -1,0 +1,37 @@
+---
+- name: Check for SteamOS
+  ansible.builtin.stat:
+    path: /etc/steamos-release
+  register: steamos_release
+
+- name: Remove ghostty binary, desktop entry, and icon (SteamOS)
+  become: false
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - ~/.local/bin/ghostty
+    - ~/.local/share/applications/ghostty.desktop
+    - ~/.local/share/icons/ghostty.png
+  when: steamos_release.stat.exists
+
+- name: Uninstall ghostty (macOS)
+  become: false
+  community.general.homebrew_cask:
+    name: ghostty
+    state: absent
+  when: ansible_os_family == 'Darwin'
+
+- name: Uninstall ghostty
+  become: true
+  ansible.builtin.package:
+    name:
+      - ghostty
+    state: absent
+  when: ansible_os_family not in ['Darwin'] and not steamos_release.stat.exists
+
+- name: Destroy ~/.config/ghostty directory
+  become: false
+  ansible.builtin.file:
+    path: ~/.config/ghostty
+    state: absent
