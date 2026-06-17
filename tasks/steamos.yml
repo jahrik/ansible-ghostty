@@ -6,19 +6,22 @@
     state: directory
     mode: '0755'
 
-- name: Get latest ghostty release info
-  become: false
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/ghostty-org/ghostty/releases/tags/v{{ ghostty_steamos_version }}
-    return_content: true
-  register: ghostty_release
-
-- name: Download ghostty AppImage
+- name: Download ghostty package
   become: false
   ansible.builtin.get_url:
-    url: "{{ ghostty_release.json.assets | selectattr('name', 'search', 'ghostty.*\\.AppImage$') | map(attribute='browser_download_url') | first }}"
-    dest: ~/.local/bin/ghostty
-    mode: '0755'
+    url: "https://archive.archlinux.org/packages/g/ghostty/ghostty-{{ ghostty_steamos_version }}-1-x86_64.pkg.tar.zst"
+    dest: "/tmp/ghostty-{{ ghostty_steamos_version }}.pkg.tar.zst"
+    mode: '0644'
+
+- name: Extract ghostty binary
+  become: false
+  ansible.builtin.unarchive:
+    src: "/tmp/ghostty-{{ ghostty_steamos_version }}.pkg.tar.zst"
+    dest: ~/.local/bin
+    remote_src: true
+    extra_opts:
+      - --strip-components=2
+      - usr/bin/ghostty
     creates: ~/.local/bin/ghostty
 
 - name: Create ~/.local/share/applications directory

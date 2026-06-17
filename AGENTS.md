@@ -18,7 +18,7 @@ Ansible role that installs [Ghostty](https://ghostty.org/) and deploys a config 
 | `ghostty.background.opacity` | `0.9` | Background transparency |
 | `ghostty.background.blur_radius` | `20` | Background blur |
 | `ghostty.keybinds` | List of keybind strings | Keybinding configuration |
-| `ghostty_steamos_version` | `1.1.3` | Ghostty version for Steam Deck AppImage |
+| `ghostty_steamos_version` | `1.3.1` | Ghostty version pulled from `archive.archlinux.org` on Steam Deck |
 
 ## Task Flow
 
@@ -42,8 +42,8 @@ Ansible role that installs [Ghostty](https://ghostty.org/) and deploys a config 
 **darwin.yml:** `community.general.homebrew_cask` install of the `ghostty` cask, `become: false`
 
 **steamos.yml:** No `become` anywhere (SteamOS root is read-only).
-- Fetches the release from the GitHub API for the pinned version
-- Downloads the AppImage to `~/.local/bin/ghostty`
+- Downloads `ghostty-{{ ghostty_steamos_version }}-1-x86_64.pkg.tar.zst` from `archive.archlinux.org`
+- Extracts just `usr/bin/ghostty` into `~/.local/bin/ghostty` via `unarchive` (`remote_src: true`, `--strip-components=2`)
 - Deploys `files/ghostty.png` to `~/.local/share/icons/` and `templates/ghostty.desktop.j2` to `~/.local/share/applications/`, then runs `kbuildsycoca6` (if present) to refresh KDE's launcher cache
 
 **uninstall.yml:** removes the SteamOS binary/desktop entry/icon (when `/etc/steamos-release` exists), uninstalls the Homebrew cask (Darwin), or removes the package via `ansible.builtin.package` (everywhere else), then always removes `~/.config/ghostty`

@@ -12,7 +12,7 @@ Ansible role that installs [Ghostty](https://ghostty.org/) terminal emulator and
 | Ubuntu | `apt` via [mkasberg/ghostty-ubuntu PPA](https://launchpad.net/~mkasberg/+archive/ubuntu/ghostty-ubuntu) |
 | Debian | `apt` via [debian.griffo.io](https://debian.griffo.io/) community repo |
 | macOS | Homebrew Cask |
-| Steam Deck (SteamOS) | AppImage from GitHub Releases |
+| Steam Deck (SteamOS) | Binary from `archive.archlinux.org` |
 
 ## Configuration
 
@@ -38,7 +38,7 @@ Deployed to `~/.config/ghostty/config`. Includes font settings, theming (Catppuc
 | `ghostty.background.blur_radius` | `20` | Background blur |
 | `ghostty.quick_terminal.position` | `top` | Quick terminal drop-down position |
 | `ghostty.keybinds` | See `defaults/main.yml` | List of keybind strings |
-| `ghostty_steamos_version` | `1.1.3` | Ghostty version for Steam Deck AppImage |
+| `ghostty_steamos_version` | `1.3.1` | Ghostty version pulled from `archive.archlinux.org` on Steam Deck |
 
 ## Testing
 
