@@ -8,10 +8,4 @@
         upgrade: true
         update_cache: true
       changed_when: false
-
-    - name: Create /etc/steamos-release to trigger Steam Deck detection
-      become: true
-      ansible.builtin.file:
-        path: /etc/steamos-release
-        state: touch
-        mode: "0644"
+      when: ansible_os_family == 'Archlinux'
