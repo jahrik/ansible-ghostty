@@ -13,6 +13,17 @@
         that: ghostty_bin.stat.exists
         fail_msg: "ghostty binary not found at /usr/bin/ghostty"
 
+    - name: Run ghostty --version
+      ansible.builtin.command: ghostty --version
+      register: ghostty_version
+      changed_when: false
+      failed_when: false
+
+    - name: Assert ghostty version output
+      ansible.builtin.assert:
+        that: ghostty_version.rc == 0 and 'ghostty' in ghostty_version.stdout | lower
+        fail_msg: "ghostty --version failed: {{ ghostty_version.stderr }}"
+
     - name: Check ghostty config file
       ansible.builtin.stat:
         path: ~/.config/ghostty/config
