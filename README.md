@@ -1,6 +1,7 @@
 # ansible-ghostty
 
 [![CICD](https://github.com/jahrik/ansible-ghostty/actions/workflows/cicd.yml/badge.svg)](https://github.com/jahrik/ansible-ghostty/actions/workflows/cicd.yml)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-jahrik.ghostty-blue?logo=ansible)](https://galaxy.ansible.com/ui/standalone/roles/jahrik/ghostty/)
 
 Ansible role that installs [Ghostty](https://ghostty.org/) terminal emulator and deploys a configuration file. Supports Arch Linux, Debian/Ubuntu, macOS, and Steam Deck (SteamOS).
 
@@ -70,6 +71,6 @@ molecule verify -s localhost
 
 GPLv2
 
-## Author
+## Author Information
 
-jahrik
+jahrik@gmail.com
