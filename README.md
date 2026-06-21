@@ -44,6 +44,8 @@ Deployed to `~/.config/ghostty/config`. Includes font settings, theming (Catppuc
 ## Testing
 
 ```bash
+uv sync
+source .venv/bin/activate
 yamllint .
 ansible-lint
 molecule test
