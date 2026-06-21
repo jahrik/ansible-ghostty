@@ -58,6 +58,8 @@ Ansible role that installs [Ghostty](https://ghostty.org/) and deploys a config 
 ## Testing
 
 ```bash
+uv sync
+source .venv/bin/activate
 yamllint .
 ansible-lint
 molecule test
