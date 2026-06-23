@@ -31,3 +31,4 @@
     components: main
     signed_by: /usr/share/keyrings/ghostty-ppa.gpg
     state: present
+  when: ansible_os_family == 'Debian'

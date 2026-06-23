@@ -29,3 +29,4 @@
     components: main
     signed_by: /usr/share/keyrings/debian.griffo.io.gpg
     state: present
+  when: ansible_os_family == 'Debian'

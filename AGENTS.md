@@ -63,9 +63,6 @@ source .venv/bin/activate
 yamllint .
 ansible-lint
 molecule test
-molecule test -s steamdeck
-molecule converge
-molecule destroy
 ```
 
 Localhost scenario (runs directly against the local machine):
