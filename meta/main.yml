@@ -4,7 +4,7 @@ galaxy_info:
   namespace: jahrik
   description: Install Ghostty terminal emulator and deploy config, with native Steam Deck / SteamOS support
   issue_tracker_url: https://github.com/jahrik/ansible-ghostty/issues
-  license: GPLv2
+  license: MIT
   min_ansible_version: '2.16'
   platforms:
     - name: ArchLinux
