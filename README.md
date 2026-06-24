@@ -49,9 +49,6 @@ source .venv/bin/activate
 yamllint .
 ansible-lint
 molecule test
-molecule test -s steamdeck
-molecule converge -s localhost
-molecule verify -s localhost
 ```
 
 ## Example Playbook
