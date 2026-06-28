@@ -13,11 +13,11 @@
 
 - name: Include Ubuntu PPA setup
   ansible.builtin.include_tasks: ubuntu_ppa.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_facts['distribution'] == 'Ubuntu'
 
 - name: Include Debian repo setup
   ansible.builtin.include_tasks: debian_repo.yml
-  when: ansible_distribution == 'Debian'
+  when: ansible_facts['distribution'] == 'Debian'
 
 - name: Install ghostty
   become: true
