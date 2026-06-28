@@ -10,15 +10,15 @@
 
 - name: Include debian
   ansible.builtin.include_tasks: debian.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Include archlinux
   ansible.builtin.include_tasks: archlinux.yml
-  when: ansible_os_family == 'Archlinux' and not steamos_release.stat.exists
+  when: ansible_facts['os_family'] == 'Archlinux' and not steamos_release.stat.exists
 
 - name: Include darwin
   ansible.builtin.include_tasks: darwin.yml
-  when: ansible_os_family == 'Darwin'
+  when: ansible_facts['os_family'] == 'Darwin'
 
 - name: Create ~/.config/ghostty directory
   become: false
