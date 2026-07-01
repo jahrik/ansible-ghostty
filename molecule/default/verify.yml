@@ -33,3 +33,33 @@
       ansible.builtin.assert:
         that: ghostty_cfg.stat.exists
         fail_msg: "ghostty config not found at ~/.config/ghostty/config"
+
+- name: Verify uninstall
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Run jahrik.ghostty with install false
+      ansible.builtin.include_role:
+        name: jahrik.ghostty
+      vars:
+        install: false
+
+    - name: Check ghostty binary removed
+      ansible.builtin.stat:
+        path: /usr/bin/ghostty
+      register: ghostty_bin_removed
+
+    - name: Assert ghostty binary is removed
+      ansible.builtin.assert:
+        that: not ghostty_bin_removed.stat.exists
+        fail_msg: "ghostty binary still present at /usr/bin/ghostty after uninstall"
+
+    - name: Check ghostty config removed
+      ansible.builtin.stat:
+        path: ~/.config/ghostty/config
+      register: ghostty_cfg_removed
+
+    - name: Assert ghostty config is removed
+      ansible.builtin.assert:
+        that: not ghostty_cfg_removed.stat.exists
+        fail_msg: "ghostty config still present at ~/.config/ghostty/config after uninstall"
