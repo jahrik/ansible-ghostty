@@ -30,4 +30,3 @@
     suites: "{{ ansible_facts['distribution_release'] }}"
     components: main
     signed_by: /usr/share/keyrings/ghostty-ppa.gpg
-    state: present

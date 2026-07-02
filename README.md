@@ -41,6 +41,21 @@ Deployed to `~/.config/ghostty/config`. Includes font settings, theming (Catppuc
 | `ghostty.keybinds` | See `defaults/main.yml` | List of keybind strings |
 | `ghostty_steamos_version` | `1.3.1` | Ghostty version pulled from `archive.archlinux.org` on Steam Deck |
 
+## Tags
+
+Run or skip parts of the role with tags:
+
+```bash
+ansible-playbook playbook.yml --tags ghostty:install
+ansible-playbook playbook.yml --skip-tags ghostty:uninstall
+```
+
+| Tag | Scope |
+|---|---|
+| `ghostty` | All role tasks |
+| `ghostty:install` | Install path only |
+| `ghostty:uninstall` | Uninstall path only |
+
 ## Testing
 
 ```bash
